@@ -62,6 +62,12 @@ namespace PrettyHairUnitTesting
             Assert.AreEqual("ChangeConfirmed:\n Changed To: 6\n", ProductTypeRepository.AdjustPrice(_chair, 6));
         }
 
+        [TestMethod]
+        public void OverriddenToString()
+        {
+            Assert.AreEqual("Product [ID = 1, Description = This Chair Is Bad!, Price = 14.99, Amount = 15]", _chair.ToString());
+        }
+
     }
 
 }

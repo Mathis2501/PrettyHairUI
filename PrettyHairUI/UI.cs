@@ -20,7 +20,7 @@ namespace PrettyHairUI
         {
             while (true)
             {
-                Console.WriteLine("Choose Your Destiny (Create Product), (Change Price), (EXIT)");
+                Console.WriteLine("Choose Your Destiny (Create Product), (Show Products), (Change Description), (Change Price), (Change Amount), (EXIT)");
                 string userInput = Console.ReadLine();
                 RunSwitch(userInput);
             }
@@ -28,26 +28,27 @@ namespace PrettyHairUI
 
         private static void RunSwitch(string userInput)
         {
+            Ui uI = new Ui();
             switch (userInput.ToUpper())
             {
                 case "CREATE PRODUCT":
-                    Ui createProduct = new Ui();
-                    createProduct.CreateProduct();
+                    uI.CreateProduct();
+                    break;
+
+                case "SHOW PRODUCTS":
+                    uI.ShowProducts();
                     break;
 
                 case "CHANGE PRICE":
-                    Ui changePrice = new Ui();
-                    changePrice.ChangePrice();
+                    uI.ChangePrice();
                     break;
 
                 case "CHANGE AMOUNT":
-                    Ui changeAmount = new Ui();
-                    changeAmount.ChangeAmount();
+                    uI.ChangeAmount();
                     break;
 
                 case "CHANGE DESCRIPTION":
-                    Ui changeDescription = new Ui();
-                    changeDescription.ChangeDescription();
+                    uI.ChangeDescription();
                     break;
 
                 case "EXIT":
@@ -78,6 +79,17 @@ namespace PrettyHairUI
             ProductType product = new ProductType(productPrice, productAmount, description);
 
             ProductTypeRepository.Products.Add(product);
+        }
+
+        private void ShowProducts()
+        {
+            foreach (ProductType Product in ProductTypeRepository.Products)
+            {
+                string productString = Product.ToString();
+                Console.WriteLine(productString);
+                Console.ReadLine();
+                Console.Clear();
+            }
         }
 
         private void ChangePrice()
