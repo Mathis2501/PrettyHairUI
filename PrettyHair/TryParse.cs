@@ -6,13 +6,13 @@ namespace PrettyHair
     {
         public static double TryParseDouble(string value)
         {
-            double ProductPrice;
-            while (double.TryParse(value, out ProductPrice) == false)
+            double productPrice;
+            while (double.TryParse(value, out productPrice) == false)
             {
                 Console.WriteLine("Try Again!");
                 value = Console.ReadLine();
             }
-            return ProductPrice;
+            return productPrice;
         }
 
         public static int TryParseInt(string value)
