@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Services;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
 using PrettyHair;
 
 namespace PrettyHairUI
 {
     internal class Ui
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Ui myProgram = new Ui();
             myProgram.Run();
@@ -21,8 +18,12 @@ namespace PrettyHairUI
         {
             while (true)
             {
-                Console.WriteLine("Choose Your Destiny (Create Product), (Show Products), (Change Description), (Change Price), (Change Amount), (EXIT)");
+                Console.WriteLine("Choose Your Destiny\n" +
+                                  "(1) Edit Database\n" +
+                                  "(2) Search Database\n\n" +
+                                  "(0) EXIT");
                 string userInput = Console.ReadLine();
+                Console.Clear();
                 RunSwitch(userInput);
             }
         }
@@ -32,27 +33,15 @@ namespace PrettyHairUI
             Ui uI = new Ui();
             switch (userInput.ToUpper())
             {
-                case "CREATE PRODUCT":
-                    uI.CreateProduct();
+                case "1":
+                    uI.EditDatabase();
                     break;
 
-                case "SHOW PRODUCTS":
-                    uI.ShowProducts();
+                case "2":
+                    uI.SearchSwitch();
                     break;
-
-                case "CHANGE PRICE":
-                    uI.ChangePrice();
-                    break;
-
-                case "CHANGE AMOUNT":
-                    uI.ChangeAmount();
-                    break;
-
-                case "CHANGE DESCRIPTION":
-                    uI.ChangeDescription();
-                    break;
-
-                case "EXIT":
+                
+                case "0":
                     Environment.Exit(0);
                     break;
 
@@ -62,80 +51,99 @@ namespace PrettyHairUI
             }
         }
 
-        
-
-        private void CreateProduct()
+        private void EditDatabase()
         {
-            Console.WriteLine("Enter the Product Name:");
-            string name = Console.ReadLine();
-
-
-            Console.WriteLine("Enter the Product Price:");
-            string price = Console.ReadLine();
-            double productPrice = TryParse.TryParseDouble(price);
-
-            Console.WriteLine("Enter the Product Amount:");
-            string amount = Console.ReadLine();
-            double productAmount = TryParse.TryParseDouble(amount);
-
-            Console.WriteLine("Enter the Product Description:");
-            string description = Console.ReadLine();
-
-            ProductType product = new ProductType(productPrice, productAmount, description, name);
-
-            ProductTypeRepository.Products.Add(product);
-        }
-
-        private void ShowProducts()
-        {
-            foreach (ProductType Product in ProductTypeRepository.Products)
-            {
-                string productString = Product.ToString();
-                Console.WriteLine(productString);
-            }
-            Console.ReadLine();
+            Ui ui = new Ui();
+            EditDatabase edit = new EditDatabase();
+            Console.WriteLine("Choose Your Destiny\n" +
+                              "(1) Create Product\n" +
+                              "(2) Change Name\n" +
+                              "(3) Change Description\n" +
+                              "(4) Change Price\n" +
+                              "(5) Change Amount\n" +
+                              "(6) Delete Product\n\n" + 
+                              "(0) BACK"
+                              );
+            string userInput = Console.ReadLine();
             Console.Clear();
+
+            switch (userInput)
+            {
+                case "1":
+                    edit.CreateProduct();
+                    break;
+
+                case "2":
+                    edit.ChangeName();
+                    break;
+
+                case "3":
+                    edit.ChangeDescription();
+                    break;
+
+                case "4":
+                    edit.ChangePrice();
+                    break;
+
+                case "5":
+                    edit.ChangeAmount();
+                    break;
+
+                case "6":
+                    edit.DeleteProductById();
+                    break;
+
+                case "0":
+                    ui.Run();
+                    break;
+            }
         }
 
-        private void ChangePrice()
+        private void SearchSwitch()
         {
-            Console.WriteLine("What product ID do you wish to edit");
-            string iD = Console.ReadLine();
-            int id = TryParse.TryParseInt(iD);
+            Ui ui = new Ui();
+            SearchDatabase Search = new SearchDatabase();
+            Console.WriteLine("Choose Your Destiny\n" +
+                                  "(1) Show All\n" + 
+                                  "(2) Search by Id\n" +
+                                  "(3) Search by Name\n" + 
+                                  "(4) Search by Description\n" + 
+                                  "(5) Search by Price\n" + 
+                                  "(6) Search by Amount\n\n" + 
+                                  "(0) BACK");
+            string userInput = Console.ReadLine();
+            Console.Clear();
 
-            Console.WriteLine("What should the product cost?");
-            string newPrice = Console.ReadLine();
-            double productPrice = TryParse.TryParseDouble(newPrice);
+            switch (userInput)
+            {
+                case "1":
+                    Search.ShowProducts();
+                    break;
 
-            Console.WriteLine(ProductTypeRepository.AdjustPrice(ProductTypeRepository.Products[id - 1], productPrice));
-        }
+                case "2":
+                    Search.SearchById();
+                    break;
 
-        private void ChangeAmount()
-        {
-            Console.WriteLine("What product ID do you wish to edit");
-            string iD = Console.ReadLine();
-            int id = TryParse.TryParseInt(iD);
+                case "3":
+                    Search.SearchByName();
+                    break;
 
-            Console.WriteLine("How many of the product is in stock?");
-            string newAmount = Console.ReadLine();
-            int productAmount = TryParse.TryParseInt(newAmount);
+                case "4":
+                    Search.SearchByDescription();
+                    break;
 
-            Console.WriteLine(ProductTypeRepository.AdjustAmount(ProductTypeRepository.Products[id - 1], productAmount));
-        }
+                case "5":
+                    Search.SearchByPrice();
+                    break;
 
-        private void ChangeDescription()
-        {
-            Console.WriteLine("What product ID do you wish to edit");
-            string iD = Console.ReadLine();
-            int id = TryParse.TryParseInt(iD);
+                case "6":
+                    Search.SearchByAmount();
+                    break;
 
-            Console.WriteLine("What should the description be");
-            string productDescription = Console.ReadLine();
-
-            Console.WriteLine(ProductTypeRepository.AdjustDescription(ProductTypeRepository.Products[id - 1], productDescription));
+                case "0":
+                    ui.Run();
+                    break;
+            }
         }
     }
 }
-    
-    
-

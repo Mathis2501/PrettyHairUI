@@ -10,7 +10,7 @@ namespace PrettyHairUnitTesting
     public class UnitTests
     {
        
-        ProductType _chair = new ProductType(14.99, 15, "This Chair Is Bad!");
+        ProductType _chair = new ProductType(14.99, 15, "This Chair Is Bad!", "heh");
 
         [TestMethod]
         public void CanReadDescription()
