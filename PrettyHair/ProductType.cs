@@ -14,14 +14,16 @@ namespace PrettyHair
         public string Description;
         public double Price;
         public double Amount;
+        public string Name;
 
         
         
-        public ProductType(double price, double amount, string description)
+        public ProductType(double price, double amount, string description, string name)
         {
             Description = description;
             Price = price;
             Amount = amount;
+            Name = name;
             NextId();
         }
 

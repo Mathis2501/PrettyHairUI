@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Services;
 using System.Text;
 using System.Threading.Tasks;
 using PrettyHair;
@@ -65,18 +66,22 @@ namespace PrettyHairUI
 
         private void CreateProduct()
         {
+            Console.WriteLine("Enter the Product Name:");
+            string name = Console.ReadLine();
+
+
             Console.WriteLine("Enter the Product Price:");
             string price = Console.ReadLine();
             double productPrice = TryParse.TryParseDouble(price);
 
-            Console.WriteLine("Enter the Product Amount");
+            Console.WriteLine("Enter the Product Amount:");
             string amount = Console.ReadLine();
             double productAmount = TryParse.TryParseDouble(amount);
 
-            Console.WriteLine("Enter the Product Description");
+            Console.WriteLine("Enter the Product Description:");
             string description = Console.ReadLine();
 
-            ProductType product = new ProductType(productPrice, productAmount, description);
+            ProductType product = new ProductType(productPrice, productAmount, description, name);
 
             ProductTypeRepository.Products.Add(product);
         }
@@ -87,9 +92,9 @@ namespace PrettyHairUI
             {
                 string productString = Product.ToString();
                 Console.WriteLine(productString);
-                Console.ReadLine();
-                Console.Clear();
             }
+            Console.ReadLine();
+            Console.Clear();
         }
 
         private void ChangePrice()
