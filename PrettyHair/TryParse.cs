@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace PrettyHair
 {
@@ -12,6 +13,8 @@ namespace PrettyHair
                 Console.WriteLine("Try Again!");
                 value = Console.ReadLine();
             }
+            Console.WriteLine(productPrice);
+            Console.ReadLine();
             return productPrice;
         }
 

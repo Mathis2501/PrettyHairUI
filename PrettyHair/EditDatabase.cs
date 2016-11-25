@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrettyHair
 {
     public class EditDatabase
     {
+
         private static string connectionString =
             "Data Source=ealdb1.eal.local;Persist Security Info=True;User ID=ejl60_usr;Password=Baz1nga60";
 
@@ -19,6 +22,7 @@ namespace PrettyHair
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
+
                     con.Open();
                     SqlCommand insertProduct = new SqlCommand("spInsertPrettyHairProduct", con);
                     insertProduct.CommandType = CommandType.StoredProcedure;
@@ -32,7 +36,9 @@ namespace PrettyHair
                     Console.Clear();
 
                     Console.WriteLine("Enter Product Price:");
-                    insertProduct.Parameters.Add(new SqlParameter("@ProductPrice", TryParse.TryParseDouble(Console.ReadLine())));
+                    double pris = TryParse.TryParseDouble(Console.ReadLine());
+                    string Pris = pris.ToString();
+                    insertProduct.Parameters.Add(new SqlParameter("@ProductPrice", Pris));
                     Console.Clear();
 
                     Console.WriteLine("Enter Product Amount:");
