@@ -24,6 +24,7 @@ namespace PrettyHairUI
                                   "(0) EXIT");
                 string userInput = Console.ReadLine();
                 Console.Clear();
+                //Test.Main();
                 RunSwitch(userInput);
             }
         }
